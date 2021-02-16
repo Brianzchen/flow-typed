@@ -297,10 +297,12 @@ async function writeFlowConfig(repoDirPath, testDirPath, libDefPath, version) {
   // forget to update the constant array CONFIGURATION_CHANGE_VERSIONS.
   // /!\---------------------------------------------------------------------/!\
   const destFlowConfigPath = path.join(testDirPath, '.flowconfig');
-
+  console.log(libDefPath);
+  console.log('version', version);
   const flowConfigData = [
     '[libs]',
     path.basename(libDefPath),
+    '/Users/brianchen/projects/flow-typed/definitions/base/koa/flow_v0.83.x-/koa.js',
     path.join(repoDirPath, '..', '__util__', 'tdd_framework.js'),
     '',
     '[options]',
@@ -319,6 +321,7 @@ async function writeFlowConfig(repoDirPath, testDirPath, libDefPath, version) {
     '[lints]',
     semver.gte(version, '0.104.0') ? 'implicit-inexact-object=error' : '',
   ].join('\n');
+  console.log(flowConfigData);
   await fs.writeFile(destFlowConfigPath, flowConfigData);
 }
 
